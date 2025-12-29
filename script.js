@@ -1,115 +1,73 @@
-/* ========= IMÁGENES ========= */
-const backgrounds = [
-  "./img1.jpeg",
-  "./img2.jpeg",
-  "./img3.jpeg",
-  "./img4.jpeg",
-  "./img5.jpeg"
-];
-
-backgrounds.forEach(src => {
-  const img = new Image();
-  img.src = src;
-});
-
-/* ========= FONDOS ========= */
-const bgA = document.querySelector(".bg-a");
-const bgB = document.querySelector(".bg-b");
-let activeBg = bgA;
-let inactiveBg = bgB;
-
-activeBg.style.backgroundImage = `url(${backgrounds[0]})`;
-
-function changeBackground(i) {
-  inactiveBg.style.backgroundImage = `url(${backgrounds[i]})`;
-  inactiveBg.classList.add("active");
-  activeBg.classList.remove("active");
-  [activeBg, inactiveBg] = [inactiveBg, activeBg];
+/* =========================
+   FIX ALTURA REAL MÓVIL
+========================= */
+function setRealVH() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
+setRealVH();
+window.addEventListener('resize', setRealVH);
 
-/* ========= MÚSICA ========= */
-const music = document.getElementById("music");
-let musicStarted = false;
+/* =========================
+   CONTADOR
+========================= */
+const targetDate = new Date("2026-02-14T18:00:00").getTime();
 
-document.addEventListener("click", () => {
-  if (!musicStarted) {
-    musicStarted = true;
-    music.volume = 0.4;
-    music.play().catch(()=>{});
-  }
-}, { once: true });
+function updateCountdown() {
+  const now = Date.now();
+  const diff = targetDate - now;
 
-/* ========= HISTORIA ========= */
+  if (diff <= 0) return;
+
+  document.getElementById("days").textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+  document.getElementById("hours").textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  document.getElementById("minutes").textContent = Math.floor((diff / (1000 * 60)) % 60);
+  document.getElementById("seconds").textContent = Math.floor((diff / 1000) % 60);
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* =========================
+   TEXTO SECUENCIAL
+========================= */
 const steps = [
-  { title: "", text: "Hay momentos que cambian todo 💍" },
-  { title: "Danixa & Ernesto", text: "Dos historias, un mismo camino" },
-  { title: "Nos Casamos 💒", text: "Y queremos que seas parte" },
-  { title: "28 · Febrero · 2026", text: "📍 KAWIÑ · ⏰ 15:00 HRS" },
-  { title: "¿Nos acompañas?", text: "Con la bendición de Dios y el amor que nos une" }
+  { title: "¡Nos Casamos! 💍", text: "Queremos compartir este momento contigo" },
+  { title: "Con mucha alegría 💒", text: "Te invitamos a celebrar nuestro amor" },
+  { title: "Muy pronto…", text: "Será un día inolvidable ❤️" }
 ];
 
-let current = 0;
+let index = 0;
 const title = document.getElementById("title");
 const text = document.getElementById("text");
 const button = document.getElementById("action");
-const effects = document.getElementById("effects");
 
-function renderStep() {
+function showStep() {
   title.style.opacity = 0;
   text.style.opacity = 0;
 
   setTimeout(() => {
-    title.textContent = steps[current].title || "\u00A0";
-    text.textContent = steps[current].text;
+    title.textContent = steps[index].title;
+    text.textContent = steps[index].text;
     title.style.opacity = 1;
     text.style.opacity = 1;
-  }, 200);
 
-  changeBackground(current);
-
-  if (current === steps.length - 1) {
-    button.textContent = "Confirmar asistencia 💬";
-  }
+    createEffect();
+    index = (index + 1) % steps.length;
+  }, 300);
 }
 
-/* ========= EFECTOS ========= */
-function lluvia() {
-  const emojis = ["❤️", "💖", "🎈"];
-  for (let i = 0; i < 18; i++) {
-    const span = document.createElement("span");
-    span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    span.style.left = Math.random() * 100 + "vw";
-    span.style.animationDuration = 2 + Math.random() * 2 + "s";
-    effects.appendChild(span);
-    setTimeout(() => span.remove(), 4000);
-  }
+button.addEventListener("click", showStep);
+showStep();
+
+/* =========================
+   EFECTOS 🎈❤️
+========================= */
+function createEffect() {
+  const emojis = ["🎈", "❤️", "💍", "💒"];
+  const span = document.createElement("span");
+  span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  span.style.left = Math.random() * 100 + "vw";
+  document.getElementById("effects").appendChild(span);
+
+  setTimeout(() => span.remove(), 4000);
 }
-
-renderStep();
-
-/* ========= CLICK ========= */
-button.addEventListener("click", () => {
-  lluvia();
-
-  if (current < steps.length - 1) {
-    current++;
-    renderStep();
-  } else {
-    window.open("https://ccgvcastro.my.canva.site/danixa-ernesto");
-    button.textContent = "Confirmado ✓";
-    button.disabled = true;
-  }
-});
-
-/* ========= CONTADOR ========= */
-const weddingDate = new Date("2026-02-28T15:00:00").getTime();
-
-setInterval(() => {
-  const diff = weddingDate - Date.now();
-  if (diff <= 0) return;
-
-  days.textContent = Math.floor(diff / 86400000);
-  hours.textContent = Math.floor((diff / 3600000) % 24);
-  minutes.textContent = Math.floor((diff / 60000) % 60);
-  seconds.textContent = Math.floor((diff / 1000) % 60);
-}, 1000);
