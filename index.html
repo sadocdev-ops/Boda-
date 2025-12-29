@@ -5,26 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nos Casamos 💍</title>
 
-  <!-- FAVICON -->
   <link rel="icon" href="data:image/svg+xml,
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
     <text y='.9em' font-size='90'>💍</text>
   </svg>">
 
-  <!-- FUENTES -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <!-- FONDOS (DOBLE CAPA) -->
+  <div class="bg bg-a"></div>
+  <div class="bg bg-b"></div>
+
   <div id="effects"></div>
 
   <main class="card">
 
-    <!-- ⏳ CONTADOR -->
     <div id="countdown">
       <div class="time"><span id="days">0</span><small>DÍAS</small></div>
       <div class="time"><span id="hours">0</span><small>HORAS</small></div>
@@ -37,10 +36,10 @@
       <p id="text"></p>
     </div>
 
-    <button id="action">Toca para continuar</button>
+    <button id="action">Toca para continuar 💒</button>
   </main>
 
-  <audio id="music" autoplay loop playsinline>
+  <audio id="music" loop playsinline>
     <source src="cancion.mp3" type="audio/mpeg">
   </audio>
 
