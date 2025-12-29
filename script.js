@@ -1,13 +1,6 @@
-// 🎵 MÚSICA
-document.addEventListener("DOMContentLoaded", () => {
-  const music = document.getElementById("music");
-  music.volume = 0.4;
-  music.play().catch(() => {
-    document.addEventListener("click", () => music.play(), { once: true });
-  });
-});
-
-// 🖼 FONDOS
+/* ======================
+   PRELOAD IMÁGENES
+====================== */
 const backgrounds = [
   "./img1.jpeg",
   "./img2.jpeg",
@@ -16,15 +9,62 @@ const backgrounds = [
   "./img5.jpeg"
 ];
 
-document.body.style.backgroundImage = `url(${backgrounds[0]})`;
+const loadedImages = [];
+let loadedCount = 0;
 
-// 💍 HISTORIA
+backgrounds.forEach(src => {
+  const img = new Image();
+  img.src = src;
+  img.onload = () => loadedCount++;
+  loadedImages.push(img);
+});
+
+/* ======================
+   FONDOS CON CROSSFADE
+====================== */
+const bgA = document.querySelector(".bg-a");
+const bgB = document.querySelector(".bg-b");
+let activeBg = bgA;
+let inactiveBg = bgB;
+
+bgA.style.backgroundImage = `url(${backgrounds[0]})`;
+bgA.classList.add("active");
+
+function changeBackground(index) {
+  if (!loadedImages[index]) return;
+
+  inactiveBg.style.backgroundImage = `url(${backgrounds[index]})`;
+
+  requestAnimationFrame(() => {
+    inactiveBg.classList.add("active");
+    activeBg.classList.remove("active");
+    [activeBg, inactiveBg] = [inactiveBg, activeBg];
+  });
+}
+
+/* ======================
+   MUSICA
+====================== */
+let musicStarted = false;
+const music = document.getElementById("music");
+
+document.addEventListener("click", () => {
+  if (!musicStarted) {
+    musicStarted = true;
+    music.volume = 0.4;
+    music.play().catch(() => {});
+  }
+}, { once: true });
+
+/* ======================
+   HISTORIA
+====================== */
 const steps = [
-  { title: "", text: "Hay momentos que cambian todo" },
-  { title: "Danixa & Ernesto 💍", text: "Dos historias, un mismo camino" },
-  { title: "Nos casamos", text: "Y queremos que seas parte" },
+  { title: "", text: "Hay momentos que cambian todo 💍" },
+  { title: "Danixa & Ernesto", text: "Dos historias, un mismo camino" },
+  { title: "Nos Casamos 💒", text: "Y queremos que seas parte" },
   { title: "28 · Febrero · 2026", text: "📍 KAWIÑ · ⏰ 15:00 HRS" },
-  { title: "¿Nos acompañas? 💒", text: "Con la bendición de Dios y el amor que nos une, queremos invitarte a celebrar nuestro matrimonio" }
+  { title: "¿Nos acompañas?", text: "Con amor y fe, te esperamos" }
 ];
 
 let current = 0;
@@ -32,7 +72,6 @@ let current = 0;
 const title = document.getElementById("title");
 const text = document.getElementById("text");
 const button = document.getElementById("action");
-const effects = document.getElementById("effects");
 
 function renderStep() {
   title.style.opacity = 0;
@@ -43,52 +82,38 @@ function renderStep() {
     text.textContent = steps[current].text;
     title.style.opacity = 1;
     text.style.opacity = 1;
-  }, 300);
+  }, 250);
 
-  document.body.style.backgroundImage =
-    `url(${backgrounds[current] || backgrounds.at(-1)})`;
+  changeBackground(current);
 
   if (current === steps.length - 1) {
-    button.textContent = "Confirmar asistencia";
-  }
-}
-
-// ❤️ EFECTOS
-function lluvia() {
-  const emojis = ["❤️", "💖", "🎈"];
-  for (let i = 0; i < 16; i++) {
-    const span = document.createElement("span");
-    span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    span.style.left = Math.random() * 100 + "vw";
-    span.style.animationDuration = 2 + Math.random() * 2 + "s";
-    effects.appendChild(span);
-    setTimeout(() => span.remove(), 4000);
+    button.textContent = "Confirmar asistencia 💬";
   }
 }
 
 renderStep();
 
-// 👉 CLICK
+/* ======================
+   CLICK
+====================== */
 button.addEventListener("click", () => {
-  lluvia();
-
   if (current < steps.length - 1) {
     current++;
     renderStep();
-    return;
+  } else {
+    window.open("https://ccgvcastro.my.canva.site/danixa-ernesto");
+    button.textContent = "Confirmado ✓";
+    button.disabled = true;
   }
-
-  window.open("https://ccgvcastro.my.canva.site/danixa-ernesto");
-  button.textContent = "Confirmado ✓";
-  button.disabled = true;
 });
 
-// ⏳ CONTADOR
+/* ======================
+   CONTADOR
+====================== */
 const weddingDate = new Date("2026-02-28T15:00:00").getTime();
 
 setInterval(() => {
-  const now = Date.now();
-  const diff = weddingDate - now;
+  const diff = weddingDate - Date.now();
   if (diff <= 0) return;
 
   days.textContent = Math.floor(diff / 86400000);
