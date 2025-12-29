@@ -2,31 +2,28 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Nos Casamos 💍</title>
 
+  <!-- FAVICON -->
   <link rel="icon" href="data:image/svg+xml,
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
     <text y='.9em' font-size='90'>💍</text>
   </svg>">
 
-  <!-- Fuentes elegantes -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <!-- FUENTE ELEGANTE -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- FONDOS -->
-  <div class="bg bg-a active"></div>
-  <div class="bg bg-b"></div>
 
   <!-- EFECTOS -->
   <div id="effects"></div>
 
   <main class="card">
 
-    <!-- CONTADOR ARRIBA -->
+    <!-- ⏳ CONTADOR -->
     <div id="countdown">
       <div class="time"><span id="days">0</span><small>DÍAS</small></div>
       <div class="time"><span id="hours">0</span><small>HORAS</small></div>
@@ -34,6 +31,7 @@
       <div class="time"><span id="seconds">0</span><small>SEG</small></div>
     </div>
 
+    <!-- CONTENIDO -->
     <div class="content">
       <h1 id="title">&nbsp;</h1>
       <p id="text"></p>
@@ -42,7 +40,8 @@
     <button id="action">Toca para continuar 💒</button>
   </main>
 
-  <audio id="music" loop playsinline>
+  <!-- AUDIO -->
+  <audio id="music" autoplay loop playsinline>
     <source src="cancion.mp3" type="audio/mpeg">
   </audio>
 
