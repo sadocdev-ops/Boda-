@@ -4,53 +4,66 @@
 
 body {
   margin: 0;
-  height: 100svh; /* 🔥 clave para móviles */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: background-image 0.8s ease;
+  height: 100vh;
+  font-family: 'Montserrat', system-ui;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-family: 'Inter', system-ui, sans-serif;
+  justify-content: center;
   overflow: hidden;
 }
 
+/* FONDOS */
+.bg {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  will-change: opacity;
+  z-index: -2;
+}
+
+.bg.active {
+  opacity: 1;
+}
+
+/* OVERLAY */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.55);
-  z-index: 0;
+  z-index: -1;
 }
 
+/* CARD */
 .card {
-  position: relative;
-  z-index: 2;
   width: 100%;
   max-width: 420px;
   height: 100%;
-  padding: clamp(18px, 4vw, 28px);
+  padding: 24px 22px 36px;
   display: flex;
   flex-direction: column;
-  color: #fff;
   text-align: center;
+  color: white;
 }
 
-/* ⏳ CONTADOR */
+/* CONTADOR */
 #countdown {
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .time {
-  background: rgba(255,255,255,0.15);
-  padding: 10px 12px;
-  border-radius: 14px;
+  background: rgba(255,255,255,0.18);
   backdrop-filter: blur(10px);
-  min-width: 64px;
+  border-radius: 14px;
+  padding: 10px 12px;
+  min-width: 60px;
 }
 
 .time span {
@@ -60,63 +73,55 @@ body::before {
 
 .time small {
   font-size: 11px;
-  opacity: 0.85;
+  letter-spacing: 1px;
+  opacity: .85;
 }
 
-/* CONTENIDO */
+/* TEXTO */
 .content {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
 }
 
 h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(30px, 7vw, 46px);
-  margin: 0;
+  margin-bottom: 16px;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity .5s ease;
 }
 
 p {
   font-size: clamp(16px, 4.5vw, 22px);
-  margin: 0;
-  line-height: 1.4;
+  line-height: 1.6;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity .5s ease;
 }
 
 /* BOTÓN */
 button {
-  margin-top: 24px;
-  padding: 16px;
-  font-size: 16px;
+  padding: 15px 28px;
   border-radius: 999px;
   border: none;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.25);
+  color: white;
+  font-size: 15px;
   cursor: pointer;
-}
-
-button:disabled {
-  opacity: 0.6;
 }
 
 /* EFECTOS */
 #effects span {
   position: fixed;
-  bottom: -50px;
-  font-size: 24px;
+  bottom: -40px;
+  font-size: 22px;
   animation: floatUp 3s linear forwards;
-  pointer-events: none;
 }
 
 @keyframes floatUp {
   to {
-    transform: translateY(-120svh) rotate(360deg);
+    transform: translateY(-120vh) rotate(360deg);
     opacity: 0;
   }
 }
