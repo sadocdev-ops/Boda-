@@ -2,13 +2,16 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
-  height: 100vh;
   font-family: 'Montserrat', system-ui;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 
@@ -18,10 +21,8 @@ body {
   inset: 0;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 1.2s ease;
-  will-change: opacity;
+  transition: opacity 1s ease;
   z-index: -2;
 }
 
@@ -29,7 +30,7 @@ body {
   opacity: 1;
 }
 
-/* OVERLAY */
+/* Overlay */
 body::before {
   content: "";
   position: fixed;
@@ -42,8 +43,8 @@ body::before {
 .card {
   width: 100%;
   max-width: 420px;
-  height: 100%;
-  padding: 24px 22px 36px;
+  height: 100dvh; /* CLAVE para móviles */
+  padding: 20px 22px 32px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -55,15 +56,15 @@ body::before {
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .time {
-  background: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.2);
   backdrop-filter: blur(10px);
   border-radius: 14px;
   padding: 10px 12px;
-  min-width: 60px;
+  min-width: 62px;
 }
 
 .time span {
@@ -74,7 +75,6 @@ body::before {
 .time small {
   font-size: 11px;
   letter-spacing: 1px;
-  opacity: .85;
 }
 
 /* TEXTO */
@@ -88,21 +88,21 @@ body::before {
 h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(30px, 7vw, 46px);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   opacity: 0;
-  transition: opacity .5s ease;
+  transition: opacity .4s ease;
 }
 
 p {
   font-size: clamp(16px, 4.5vw, 22px);
   line-height: 1.6;
   opacity: 0;
-  transition: opacity .5s ease;
+  transition: opacity .4s ease;
 }
 
 /* BOTÓN */
 button {
-  padding: 15px 28px;
+  padding: 15px 26px;
   border-radius: 999px;
   border: none;
   background: rgba(255,255,255,0.25);
@@ -115,8 +115,9 @@ button {
 #effects span {
   position: fixed;
   bottom: -40px;
-  font-size: 22px;
+  font-size: 24px;
   animation: floatUp 3s linear forwards;
+  pointer-events: none;
 }
 
 @keyframes floatUp {
