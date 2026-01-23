@@ -42,7 +42,7 @@ const steps = [
   { title: "Hay momentos que cambian todo 💍", text: "Hay instantes que marcan una historia" },
   { title: "Danixa & Ernesto", text: "Dos caminos, un mismo destino" },
   { title: "Nos Casamos 💒", text: "Y queremos que seas parte" },
-  { title: "28 · Febrero · 2026", text: "📍 KAWIÑ · ⏰ 15:00 HRS" },
+  { title: "28 · Febrero · 2026", text: "📍 KAWIÑ · ⏰ 17:00 HRS" },
   { title: "¿Nos acompañas?", text: "Será un día inolvidable ❤️" }
 ];
 
@@ -102,3 +102,4 @@ setInterval(() => {
   minutes.textContent = Math.floor(diff / 60000) % 60;
   seconds.textContent = Math.floor(diff / 1000) % 60;
 }, 1000);
+
